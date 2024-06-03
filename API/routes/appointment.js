@@ -4,16 +4,28 @@ const Router = new express.Router();
 
 //create appoinetment
 Router.post("/create/appointment", async (req, res) => {
+  const { userId, employeeId, productId, app_time } = req.body;
+
+  // Create a new appointment instance
+  const newAppointment = new Appointment({
+    userId,
+    employeeId,
+    productId,
+    app_time,
+  });
+
   try {
-    res.status(200).send();
-  } catch (e) {
-    res.status(400).send();
+    // Save the appointment to the database
+    const savedAppointment = await newAppointment.save();
+    res.status(201).json(savedAppointment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
 //get single appointment
 
-Router.get("/fetch/appointment", async (req, res) => {
+Router.get("/fetch/appointment/:id", async (req, res) => {
   try {
     res.status(200).send();
   } catch (e) {

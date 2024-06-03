@@ -5,7 +5,7 @@ const appointmentSchema = new Schema({
   userId: {
     type: mongoose.Schema.ObjectId,
   },
-  employeeid: {
+  employeeId: {
     type: mongoose.Schema.ObjectId,
   },
   productId: {
