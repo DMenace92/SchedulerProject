@@ -5,16 +5,27 @@ const Router = new express.Router();
 Router.post("/create/employee", async (req, res) => {
   const employee = new Employee(req.body);
   try {
-    await employee.save();
-    res.status(200).send({ employee });
+    const saveEmployee = await employee.save();
+    res.status(200).send(saveEmployee);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+//find all
+Router.get("/fetch/employee", async (req, res) => {
+  try {
+    const employee = await Employee.find(req.body);
+    res.status(200).send(employee);
   } catch (e) {
     res.status(400).send(e);
   }
 });
 
-Router.get("/fetch/employee", async (req, res) => {
+//fetch single employee
+Router.get("/fetch/employee/:id", async (req, res) => {
   try {
-    res.status(200).send();
+    const employee = await Employee.findbyId(req.body.id);
+    res.status(200).send(employee);
   } catch (e) {
     res.status(400).send(e);
   }

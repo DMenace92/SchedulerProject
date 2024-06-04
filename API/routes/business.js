@@ -1,11 +1,13 @@
 const express = require("express");
-const Product = require("../modules/appointmentModule");
+const Business = require("../modules/businessModule");
 const Router = new express.Router();
 
 //create appoinetment
 Router.post("/create/business", async (req, res) => {
+  const business = new Business(req.body);
   try {
-    res.status(200).send();
+    await business.save();
+    res.status(200).send({ business });
   } catch (e) {
     res.status(400).send();
   }
